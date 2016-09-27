@@ -32,14 +32,14 @@ def get_senti_reversed_negation(tweet):
         if tokens[i] in senti_virtue.keys(): virtue_score = virtue_score + 1
         if tokens[i] in senti_negative.keys():
             for j in range(max(0, i - window), i):
-                if tokens[i] in neg_list: if_neg = if_neg * (-1)
+                if tokens[j] in neg_list: if_neg = if_neg * (-1)
             if(if_neg == 1):
                 pos_score = pos_score + 1
             else:
                 neg_score = neg_score + 1
         if tokens[i] in senti_positive.keys():
             for j in range(max(0, i - window), i):
-                if tokens[i] in neg_list: if_neg = if_neg * (-1)
+                if tokens[j] in neg_list: if_neg = if_neg * (-1)
             if (if_neg == 1):
                 neg_score = neg_score + 1
             else:
