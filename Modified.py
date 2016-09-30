@@ -1,7 +1,21 @@
+"""
+These negations were collected by Jan from polanyi's chapter and Israel chapter
+from The Handbook of Pragmatics 2004 Horn & Ward (eds).  But added to from training set.
+@article{wilson2009recognizing,
+  title={Recognizing contextual polarity: An exploration of features for phrase-level sentiment analysis},
+  author={Wilson, Theresa and Wiebe, Janyce and Hoffmann, Paul},
+  journal={Computational linguistics},
+  volume={35},
+  number={3},
+  pages={399--433},
+  year={2009},
+  publisher={MIT Press}
+"""
+
 
 #load "neg_list" globally for better performance
 neg_list = []
-with open("negation_list") as file:
+with open("valenceshifters.tff") as file:
     for line in file:
         neg_list.append(line.rstrip('\n'))
 file.close()
@@ -11,7 +25,7 @@ file.close()
 def get_senti_reversed_negation(tweet):
     """look up each lexicon and sum up the sentiment score
     """
-    #negation detection window
+    #negation detection window size
     window = 2
 
     #load tokens
