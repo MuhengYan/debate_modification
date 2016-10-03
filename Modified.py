@@ -14,12 +14,25 @@ from The Handbook of Pragmatics 2004 Horn & Ward (eds).  But added to from train
 
 
 #load "neg_list" globally for better performance
-neg_list = []
-with open("valenceshifters.tff") as file:
-    for line in file:
-        neg_list.append(line.rstrip('\n'))
-file.close()
+#neg_list = []
+#with open("valenceshifters.tff") as file:
+#    for line in file:
+#        neg_list.append(line.rstrip('\n'))
+#file.close()
+def sentiment_dict(sentimentData):
+	''' (file) -> dictionary
+	This method should take your sentiment file
+	and create a dictionary in the form {word: value}
+	'''
+	afinnfile = open(sentimentData)
+	scores = {} # initialize an empty dictionary
+	for line in afinnfile:
+		# term  = line  # The file is tab-delimited. "\t" means "tab character"
+		scores[line.rstrip()] = float(1)  # Convert the score to an integer.
+	return scores # Print every (term, score) pair in the dictionary
 
+sentimentData = "valenceshifters.tff"
+senti_negation = sentiment_dict(sentimentData)
 
 
 def get_senti_reversed_negation(tweet):
@@ -32,11 +45,11 @@ def get_senti_reversed_negation(tweet):
     tokens = tweet.get("tokens")
 
     #initialize scores
-    vice_score = 0
-    virtue_score = 0
+    #vice_score = 0
+    #virtue_score = 0
     pos_score = 0
     neg_score = 0
-
+    
     #negation switch
     if_neg = -1
 
@@ -47,14 +60,14 @@ def get_senti_reversed_negation(tweet):
         if_neg = -1
         if tokens[i] in senti_negative.keys():
             for j in range(max(0, i - window), i):
-                if tokens[j] in neg_list: if_neg = if_neg * (-1)
+                if tokens[j] in senti_negation.keys(): if_neg = if_neg * (-1)
             if(if_neg == 1):
                 pos_score = pos_score + 1
             else:
                 neg_score = neg_score + 1
         if tokens[i] in senti_positive.keys():
             for j in range(max(0, i - window), i):
-                if tokens[j] in neg_list: if_neg = if_neg * (-1)
+                if tokens[j] in senti_negation.keys(): if_neg = if_neg * (-1)
             if (if_neg == 1):
                 neg_score = neg_score + 1
             else:
