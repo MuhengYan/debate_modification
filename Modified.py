@@ -42,8 +42,9 @@ def get_senti_reversed_negation(tweet):
 
     #if a negation in the range of "window", reverse "pos" and "neg"
     for i in range(0,len(tokens)):
-        if tokens[i] in senti_vice.keys(): vice_score = vice_score + 1
-        if tokens[i] in senti_virtue.keys(): virtue_score = virtue_score + 1
+        #if tokens[i] in senti_vice.keys(): vice_score = vice_score + 1
+        #if tokens[i] in senti_virtue.keys(): virtue_score = virtue_score + 1
+        if_neg = -1
         if tokens[i] in senti_negative.keys():
             for j in range(max(0, i - window), i):
                 if tokens[j] in neg_list: if_neg = if_neg * (-1)
@@ -59,8 +60,8 @@ def get_senti_reversed_negation(tweet):
             else:
                 pos_score = pos_score + 1
 
-    tweet["vice_score"] = vice_score
-    tweet["virtue_score"] = virtue_score
+    #tweet["vice_score"] = vice_score
+    #tweet["virtue_score"] = virtue_score
     tweet["pos_score"] = pos_score
     tweet["neg_score"] = neg_score
 
